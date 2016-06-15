@@ -1,0 +1,13 @@
+{
+  "name": "email-node",
+  "version": "1.0.0",
+  "dependencies": {
+    "nodemailer": "v0.7.1",
+    "express": "latest",
+    "helmet": "latest",
+    "csurf" : "latest",
+    "cookie-parser" : "latest",
+    "body-parser" : "latest"
+  }
+}
+

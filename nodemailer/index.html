@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Formica</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>// <![CDATA[
-$(document).ready(function(){
-    var to,subject,text;
-    $("#send_email").click(function(){      
-        to=$("#to").val();
-        subject=$("#subject").val();
-        text=$("#content").val();
-        $("#message").text("Slanje E-mail...Molimo sacekajte");
-        $.post("http://localhost:3000/send",{to:to,subject:subject,text:text},function(data){
-	        if(data=="sent") {
-	            $("#message").empty().html("Email je poslat "+to+" . Proveri inbox !");
-	        }
-
+	<head>
+		<title>Mail forma</title>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+	</head>
+	<body>
+		<div class='form-group' style="margin-top: 100px; width : 600px; margin-left : 25%;">
+			<h1> Mail formica</h1>
+			<form id="comment_form" action='/submit' method="post">
+				<textarea name="comment" rows="8" cols="39"></textarea><br><br>
+				<div class="g-recaptcha" data-sitekey="6LcX1v4SAAAAAOf5ffTwmpYwTx07N5Df5ztmSkde"></div><br>
+				<input type="submit" name="submit" value="Send mail"><br><br>
+			</form>
+		</div>
+	</body>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+	<script>
+		$(document).ready(function() {
+			$('#comment_form').submit(function() {
+				$(this).ajaxSubmit ({
+					error: function(xhr) {
+						status('Error: ' + xhr.status);
+					},
+					success: function(response) {
+						alert(response.responseDesc);
+					}
+				});
+				//Very important line, it disable the page refresh.
+				return false;
+			});
 		});
-    });
-});
-</script>
-</head>
-<body>
-<div id="container">
-<h1>Mailer In Node.JS</h1>
-<input id="to" type="text" placeholder="karzicmarko@gmail.com" />
-<input id="subject" type="text" placeholder="Write Subject" />
-<textarea id="content" cols="40" rows="5" placeholder="Write what you want to send"></textarea>
-<button id="send_email">Send Email</button>
-<span id="message"></span>
-</div>
-</div>
-
-</body>
+	</script>
 </html>
